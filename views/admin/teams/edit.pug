@@ -1,0 +1,38 @@
+extends ../layout
+
+block content
+  h1= title
+
+  div(class="row")
+    div(class="col-4")
+      h2 Create user
+
+      form(action=`/admin/teams/${team.id}/users/create`, method="post", class="well")
+        div(class="form-group")
+          label(for="name")
+            | First name
+          input(type="text", name="firstName", class="form-control")
+          label(for="name")
+            | Last name
+          input(type="text", name="lastName", class="form-control")
+        input(type="submit" class="btn btn-primary")
+
+    div(class="col-6")
+      h2 Users
+
+      table(class="table table-striped table-bordered table-hover")
+        tr
+          th
+            | Name
+          th
+            | &nbsp;
+          th
+            | &nbsp;
+        each user in users
+          tr
+            td
+              = user.fullName
+            td
+              a(href=`/admin/teams/${team.id}/users/${user.id}/edit`, class="btn btn-sm btn-dark") Edit
+            td
+              a(href=`/admin/teams/${team.id}/users/${user.id}/delete`, class="btn btn-sm btn-danger") Delete

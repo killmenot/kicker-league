@@ -1,0 +1,43 @@
+extends ../layout
+
+block content
+  h1= title
+
+  div(class="row")
+    div(class="col-4")
+      h2 Create team
+
+      form(action="/admin/teams/create", method="post", class="well")
+        div(class="form-group")
+          label(for="name")
+            | Team name
+          input(type="text", name="name", class="form-control")
+        div(class="form-group")
+          label(for="location")
+            | Location
+          input(type="text", name="location", class="form-control")
+        input(type="submit" class="btn btn-primary")
+
+    div(class="col-6")
+      h2 Teams
+
+      table(class="table table-striped table-bordered table-hover")
+        tr
+          th
+            | Name
+          th
+            | Location
+          th
+            | &nbsp;
+          th
+            | &nbsp;
+        each team in teams
+          tr
+            td
+              = team.name
+            td
+              = team.location
+            td
+              a(href=`/admin/teams/${team.id}/edit`, class="btn btn-sm btn-dark") Edit
+            td
+              a(href=`/admin/teams/${team.id}/delete`, class="btn btn-sm btn-danger") Delete

@@ -1,0 +1,167 @@
+extends ../layout
+
+mixin sets(id)
+  div(class="row no-gutters")
+    div(class="col")
+      input(type="text", name=`awayScores[${id}][]`, maxlength="1", class="form-control", required)
+    div(class="col")
+      input(type="text", name=`homeScores[${id}][]`, maxlength="1", class="form-control", required)
+      
+  div(class="row no-gutters")
+    div(class="col")
+      input(type="text", name=`awayScores[${id}][]`, maxlength="1", class="form-control", required)
+    div(class="col")
+      input(type="text", name=`homeScores[${id}][]`, maxlength="1", class="form-control", required)
+
+mixin double(id)
+  div(class="row form-group")
+    div(class="col-5")
+      select(
+        class="form-control",
+        name=`awayPlayers[${id}][]`,
+        required,
+        ng-repeat="i in numbers track by $index"
+        ng-model=`awayPlayers[${id}][$index]`,
+        ng-options="user as user.fullName for user in awayUsers track by user.id"
+      )
+        option(value="", selected="selected")
+
+    div(class="col-2")
+      +sets(id)
+
+    div(class="col-5")
+      select(
+        class="form-control",
+        name=`homePlayers[${id}][]`,
+        required,
+        ng-repeat="i in numbers track by $index",
+        ng-model=`homePlayers[${id}][$index]`,
+        ng-options="user as user.fullName for user in homeUsers track by user.id"
+      )
+        option(value="", selected="selected")
+
+mixin single(id)
+  div(class="row form-group align-items-center")
+    div(class="col-5")
+      select(
+        class="form-control",
+        name=`awayPlayers[${id}]`,
+        required,
+        ng-model=`awayPlayers[${id}]`,
+        ng-options="user as user.fullName for user in awayUsers track by user.id"
+      )
+        option(value="", selected="selected")
+
+    div(class="col-2")
+      +sets(id)
+
+    div(class="col-5")
+      select(
+        class="form-control",
+        name=`homePlayers[${id}]`,
+        required,
+        ng-model=`homePlayers[${id}]`,
+        ng-options="user as user.fullName for user in homeUsers track by user.id",
+      )
+        option(value="", selected="selected")
+
+mixin penalty(id)
+  div(class="row form-group")
+    div(class="col-sm-5")
+      select(name=`${id}_home_player`, class="form-control")
+        option(value="0")
+        each user in users
+          option(value=user.id)
+            = user.fullName
+
+    div(class="col-sm-2 text-center")
+      div(class="row")
+        div(class="col")
+          div(class="checkbox")
+            label
+              input(type="checkbox", name=`home_penalty_1`)
+        div(class="col")
+          div(class="checkbox")
+            label
+              input(type="checkbox", name=`home_penalty_1`)
+    div(class="col-sm-5")
+      select(name=`${id}_away_player`, class="form-control")
+        option(value="0")
+        each user in users
+          option(value=user.id)
+            = user.fullName
+
+block content
+  h1= title
+
+  form(action="/admin/games/create", method="post", class="well", ng-controller="GameEditController")
+    fieldset
+      legend
+        | Information
+      div(class="form-group")
+        label(for="date")
+          | Date
+        div(class="input-group date", id="datepicker", data-target-input="nearest")
+          input(
+            type="text",
+            name="date",
+            placeholder="MM/DD/YYYY"
+            class="form-control datetimepicker-input",
+            data-target="#datepicker",
+            required)
+          div(class="input-group-append", data-target="#datepicker", data-toggle="datetimepicker")
+            div(class="input-group-text")
+              i(class="fa fa-calendar")
+      div(class="form-group")
+        label(for="homeTeamId")
+          | Home
+        select(name="homeTeamId", id="homeTeamId", class="form-control", ng-model="homeTeamId", required)
+          each team in teams
+            option(value=team.id)
+              = team.name
+      div(class="form-group")
+        label(for="awayTeamId")
+          | Away
+        select(name="awayTeamId", id="awayTeamId", class="form-control", ng-model="awayTeamId", required)
+          each team in teams
+            option(value=team.id)
+              = team.name
+
+    fieldset
+      legend
+        | Matches
+      div(class="form-group")
+        div(class="row")
+          div(class="col-5 text-center")
+            h5 Away
+          div(class="col-2 text-center text-nowrap")
+            h5 Score
+          div(class="col-5 text-center")
+            h5 Home
+        +double('0')
+        +double('1')
+        +single('2')
+        +single('3')
+        +double('4')
+        +double('5')
+
+    //-
+      fieldset
+      legend
+        | Penalties
+      div(class="form-group")
+        div(class="row")
+          div(class="col-xs-5 text-center")
+            h5 Home
+          div(class="col-xs-2 text-center text-nowrap")
+            h5 Score
+          div(class="col-xs-5 text-center")
+            h5 Away
+        +penalty(1)
+        +penalty(2)
+        +penalty(3)
+        +penalty(4)
+        +penalty(5)
+
+    input(type="submit" class="btn btn-primary")
+
