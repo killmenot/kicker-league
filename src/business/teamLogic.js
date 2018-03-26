@@ -1,40 +1,43 @@
 'use strict'
 
 import {logger} from '../core'
-import models from '../models'
+import {teamDb} from '../db'
+import {Team} from '../models'
 
 export default {
 
   getAll: async () => {
     logger.info('business/teamLogic|getAll')
 
-    return await models.Team.findAll();
+    const dbTeams = await teamDb.getAll()
+
+    return (dbTeams || []).map(x => new Team(x))
   },
 
   getById: async (id) => {
     logger.info('business/teamLogic|getById')
 
-    return await models.Team.findById(id);
+    const dbTeam = await teamDb.getById(id)
+
+    return dbTeam ?
+      new Team(dbTeam) :
+      null
   },
 
-  insert: async (props) => {
-    logger.info('business/teamLogic|insert', {props})
+  insert: async (values) => {
+    logger.info('business/teamLogic|insert', {values})
 
-    const team = await models.Team.create({
-      name: props.name,
-      location: props.location
-    });
+    const team = {
+      name: values.name,
+      location: values.location
+    }
 
-    return team.id
+    return await teamDb.insert(team)
   },
 
   delete: async (id) => {
     logger.info('business/teamLogic|delete', {id})
 
-    await models.Team.destroy({
-      where: {
-        id: id
-      }
-    })
+    return await teamDb.delete(id)
   }
 }

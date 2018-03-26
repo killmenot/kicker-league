@@ -1,41 +1,12 @@
-'use strict';
+'use strict'
 
-export default (sequelize, DataTypes) => {
-  const MatchUsers = sequelize.define('matchUsers', {
-    position: {
-      allowNull: false,
-      type: DataTypes.INTEGER
-    }
-  }, {
-    tableName: 'matches_users',
-  })
+//TODO: rename to MatchPlayers
 
-  MatchUsers.associate = function (models) {
-    MatchUsers.belongsTo(models.Match, {
-      as: 'Match',
-      foreignKey: {
-        allowNull: false,
-        name: 'matchId',
-        field: 'match_id'
-      }
-    })
-
-    MatchUsers.belongsTo(models.User, {
-      as: 'HomePlayer',
-      foreignKey: {
-        name: 'homePlayerId',
-        field: 'home_player_id'
-      }
-    })
-
-    MatchUsers.belongsTo(models.User, {
-      as: 'AwayPlayer',
-      foreignKey: {
-        name: 'awayPlayerId',
-        field: 'away_player_id'
-      }
-    })
+export default class MatchUsers {
+  constructor(dbData = {}) {
+    this.matchId = dbData.matchId
+    this.position = dbData.position
+    this.homePlayerId = dbData.homePlayerId
+    this.awayPlayerId = dbData.awayPlayerId
   }
-
-  return MatchUsers
 }

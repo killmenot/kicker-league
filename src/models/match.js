@@ -1,83 +1,37 @@
 'use strict'
 
-export default (sequelize, DataTypes) => {
-  const Match = sequelize.define('match', {
-    position: {
-      allowNull: false,
-      type: DataTypes.INTEGER
-    },
-    type: {
-      allowNull: false,
-      type: DataTypes.ENUM('single', 'double')
-    },
-    winner: {
-      allowNull: false,
-      type: DataTypes.ENUM('home', 'away', 'draw')
-    },
-    walkover: {
-      allowNull: false,
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-    }
-  })
+import _ from 'lodash'
 
-  Match.associate = function (models) {
-    Match.belongsTo(models.Game, {
-      as: 'Game',
-      onDelete: 'CASCADE',
-      foreignKey: {
-        allowNull: false,
-        name: 'gameId',
-        field: 'game_id'
-      }
-    })
+export default class Match {
+  constructor(dbData = {}) {
+    this.id = dbData.id
+    this.gameId = dbData.gameId
+    this.position = dbData.position
+    this.type = dbData.type
+    this.winner = dbData.winner
+    this.walkover = dbData.walkover
 
-    Match.belongsToMany(models.User, {
-      as: 'HomePlayers',
-      through: 'matches_users',
-      foreignKey: {
-        name: 'matchId',
-        field: 'match_id'
-      },
-      otherKey: {
-        name: 'homePlayerId',
-        field: 'home_player_id'
-      }
-    })
-
-    Match.belongsToMany(models.User, {
-      as: 'AwayPlayers',
-      through: 'match_users',
-      foreignKey: {
-        name: 'matchId',
-        field: 'match_id'
-      },
-      otherKey: {
-        name: 'awayPlayerId',
-        field: 'away_player_id'
-      }
-    })
-
-    // Match.belongsToMany(User, {
-    //   as: 'HomeUsers',
-    //   through: {
-    //     model: models.MatchUsers
-    //   },
-    //   foreignKey: 'match_id',
-    //   otherKey: 'home_user_id'
-    // });
-
-    // Match.belongsToMany(User, {
-    //   as: 'AwayUsers',
-    //   through: {
-    //     model: models.MatchUsers
-    //   },
-    //   foreignKey: 'match_id',
-    //   otherKey: 'away_user_id'
-    // });
+    this.sets = []
+    this.homePlayers = []
+    this.awayPlayers = []
   }
 
-  return Match
+  addSets(sets) {
+    if (!sets) return
+
+    const newSets = this.sets.concat(sets)
+    this.sets = _.sortBy(newSets, x => x.position)
+  }
+
+  addHomePlayers(players) {
+    if (!players) return
+
+    this.homePlayers = this.homePlayers.concat(players)
+  }
+
+  addAwayPlayers(players) {
+    if (!players) return
+
+    this.awayPlayers = this.awayPlayers.concat(players)
+  }
 }
-
-

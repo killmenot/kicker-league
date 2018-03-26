@@ -1,51 +1,46 @@
 'use strict'
 
-export default (sequelize, DataTypes) => {
-  const Game = sequelize.define('game', {
-    date: {
-      allowNull: false,
-      type: DataTypes.DATEONLY
-    },
-    homeScore: {
-      allowNull: false,
-      type: DataTypes.INTEGER,
-      field: 'home_score'
-    },
-    awayScore: {
-      allowNull: false,
-      type: DataTypes.INTEGER,
-      field: 'away_score'
-    },
-    winner: {
-      allowNull: false,
-      type: DataTypes.ENUM('home', 'away', 'draw')
-    },
-    walkover: {
-      allowNull: false,
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
-    }
-  })
+import moment from 'moment'
+import _ from 'lodash'
 
-  Game.associate = function (models) {
-    models.Game.belongsTo(models.Team, {
-      as: 'HomeTeam',
-      foreignKey: {
-        allowNull: false,
-        name: 'homeTeamId',
-        field: 'home_team_id'
-      }
-    })
+export default class Game {
+  constructor(dbData = {}) {
+    this.id = dbData.id || 0
+    this.date = dbData.date ?
+      moment(dbData.date, 'DD-MM-YYYY').format('MM/DD/YYYY') :
+      ''
+    this.homeTeamId = dbData.homeTeamId || 0
+    this.awayTeamId = dbData.awayTeamId || 0
+    this.homeScore = dbData.homeScore || -1
+    this.awayScore = dbData.awayScore || -1
+    this.winner = dbData.winner || ''
+    this.walkover = dbData.walkover || false
 
-    models.Game.belongsTo(models.Team, {
-      as: 'AwayTeam',
-      foreignKey: {
-        allowNull: false,
-        name: 'awayTeamId',
-        field: 'away_team_id'
-      }
-    })
+    this.matches = []
   }
 
-  return Game
-};
+  setHomeTeam(team) {
+    if (!team) return
+
+    this.homeTeam = team
+  }
+
+  setAwayTeam(team) {
+    if (!team) return
+
+    this.awayTeam = team
+  }
+
+  addMatches(matches) {
+    if (!matches) return
+
+    const newMatches = this.matches.concat(matches)
+    this.matches = _.sortBy(newMatches, x => x.position)
+  }
+
+  get title() {
+    return this.homeTeam && this.awayTeam ?
+      `${this.homeTeam.name} - ${this.awayTeam.name} (${this.homeTeam.location})` :
+      ''
+  }
+}

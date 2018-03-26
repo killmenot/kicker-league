@@ -1,13 +1,33 @@
 'use strict'
 
+import dbBase from './dbBase'
 import {logger} from '../core'
-import models from '../models'
+import models from './models'
 
-export default {
+export default Object.assign({
 
-  insertBulk: async (records) => {
-    logger.info('db/matchUsersDb|insertBulk', {records})
+  getByMatchIds: async (matchIds) => {
+    logger.info('db/matchUsersDb|getByMatchIds', {matchIds})
 
-    return await models.MatchUsers.bulkCreate(records)
+    const options = {
+      where: {
+        matchId: matchIds
+      }
+    }
+
+    return await models.MatchUsers.findAll(options)
+  },
+
+  getByGameIds: async (gameIds) => {
+    logger.info('db/matchUsersDb|getByGameIds', {gameIds})
+
+    const options = {
+      where: {
+        gameId: gameIds
+      }
+    }
+
+    return await models.MatchUsers.findAll(options)
   }
-}
+
+}, dbBase(models.MatchUsers))

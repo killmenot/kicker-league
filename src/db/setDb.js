@@ -1,23 +1,33 @@
 'use strict'
 
+import dbBase from './dbBase'
 import {logger} from '../core'
-import models from '../models'
+import models from './models'
 
-export default {
+export default Object.assign({
 
-  insertBulk: async (records) => {
-    logger.info('db/setDb|insertBulk', {records})
+  getByMatchIds: async (matchIds) => {
+    logger.info('db/setDb|getByMatchIds', {matchIds})
 
-    return await models.Set.bulkCreate(records)
+    const options = {
+      where: {
+        matchId: matchIds
+      }
+    }
+
+    return await models.Set.findAll(options)
   },
 
-  getLastInsertedId: async () => {
-    logger.info('db/setDb|getLastInsertedId')
+  getByGameIds: async (gameIds) => {
+    logger.info('db/setDb|getByGameIds', {gameIds})
 
-    const dbData = await models.Set.max('id')
+    const options = {
+      where: {
+        gameId: gameIds
+      }
+    }
 
-    return isNaN(dbData) ?
-      0 :
-      dbData
+    return await models.Set.findAll(options)
   }
-}
+
+}, dbBase(models.Set))

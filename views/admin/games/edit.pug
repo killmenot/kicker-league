@@ -1,66 +1,68 @@
 extends ../layout
 
-mixin sets(id)
+mixin set(index, homeScore, awayScore)
   div(class="row no-gutters")
     div(class="col")
-      input(type="text", name=`awayScores[${id}][]`, maxlength="1", class="form-control", required)
+      input(type="text", name=`awayScores[${index}][]`, maxlength="1", class="form-control", value=awayScore, required)
     div(class="col")
-      input(type="text", name=`homeScores[${id}][]`, maxlength="1", class="form-control", required)
-      
-  div(class="row no-gutters")
-    div(class="col")
-      input(type="text", name=`awayScores[${id}][]`, maxlength="1", class="form-control", required)
-    div(class="col")
-      input(type="text", name=`homeScores[${id}][]`, maxlength="1", class="form-control", required)
+      input(type="text", name=`homeScores[${index}][]`, maxlength="1", class="form-control", value=homeScore, required)
 
-mixin double(id)
-  div(class="row form-group")
+mixin sets(index, data)
+  +set(index, data[0].homeScore, data[0].awayScore)
+  +set(index, data[1].homeScore, data[1].awayScore)
+
+mixin double(index, homePlayers, awayPlayers, sets)
+  div(class="row form-group",
+      ng-init=`assignPlayers('${index}', '${homePlayers.map(x =>x.id)}', '${awayPlayers.map(x =>x.id)}', 'double')`
+  )
     div(class="col-5")
       select(
         class="form-control",
-        name=`awayPlayers[${id}][]`,
+        name=`awayPlayers[${index}][]`,
         required,
         ng-repeat="i in numbers track by $index"
-        ng-model=`awayPlayers[${id}][$index]`,
+        ng-model=`awayPlayers[${index}][$index]`,
         ng-options="user as user.fullName for user in awayUsers track by user.id"
       )
         option(value="", selected="selected")
 
     div(class="col-2")
-      +sets(id)
+      +sets(index, sets)
 
     div(class="col-5")
       select(
         class="form-control",
-        name=`homePlayers[${id}][]`,
+        name=`homePlayers[${index}][]`,
         required,
         ng-repeat="i in numbers track by $index",
-        ng-model=`homePlayers[${id}][$index]`,
+        ng-model=`homePlayers[${index}][$index]`,
         ng-options="user as user.fullName for user in homeUsers track by user.id"
       )
         option(value="", selected="selected")
 
-mixin single(id)
-  div(class="row form-group align-items-center")
+mixin single(index, homePlayers, awayPlayers, sets)
+  div(class="row form-group align-items-center",
+      ng-init=`assignPlayers('${index}', '${homePlayers.map(x =>x.id)}', '${awayPlayers.map(x =>x.id)}', 'single')`
+  )
     div(class="col-5")
       select(
         class="form-control",
-        name=`awayPlayers[${id}]`,
+        name=`awayPlayers[${index}]`,
         required,
-        ng-model=`awayPlayers[${id}]`,
+        ng-model=`awayPlayers[${index}]`,
         ng-options="user as user.fullName for user in awayUsers track by user.id"
       )
         option(value="", selected="selected")
 
     div(class="col-2")
-      +sets(id)
+      +sets(index, sets)
 
     div(class="col-5")
       select(
         class="form-control",
-        name=`homePlayers[${id}]`,
+        name=`homePlayers[${index}]`,
         required,
-        ng-model=`homePlayers[${id}]`,
+        ng-model=`homePlayers[${index}]`,
         ng-options="user as user.fullName for user in homeUsers track by user.id",
       )
         option(value="", selected="selected")
@@ -94,7 +96,10 @@ mixin penalty(id)
 block content
   h1= title
 
-  form(action="/admin/games/create", method="post", class="well", ng-controller="GameEditController")
+  form(action=game.id ? `/admin/games/${game.id}/update` : '/admin/games/create', method="post", class="well",
+    ng-controller="GameEditController"
+    ng-init=`init('${game.homeTeamId}', '${game.awayTeamId}')`
+  )
     fieldset
       legend
         | Information
@@ -108,6 +113,7 @@ block content
             placeholder="MM/DD/YYYY"
             class="form-control datetimepicker-input",
             data-target="#datepicker",
+            value=game.date,
             required)
           div(class="input-group-append", data-target="#datepicker", data-toggle="datetimepicker")
             div(class="input-group-text")
@@ -116,15 +122,17 @@ block content
         label(for="homeTeamId")
           | Home
         select(name="homeTeamId", id="homeTeamId", class="form-control", ng-model="homeTeamId", required)
+          option(value="0")
           each team in teams
-            option(value=team.id)
+            option(value=team.id, selected=game.homeTeamId === team.id)
               = team.name
       div(class="form-group")
         label(for="awayTeamId")
           | Away
         select(name="awayTeamId", id="awayTeamId", class="form-control", ng-model="awayTeamId", required)
+          option(value="0")
           each team in teams
-            option(value=team.id)
+            option(value=team.id, selected=game.awayTeamId === team.id)
               = team.name
 
     fieldset
@@ -138,12 +146,8 @@ block content
             h5 Score
           div(class="col-5 text-center")
             h5 Home
-        +double('0')
-        +double('1')
-        +single('2')
-        +single('3')
-        +double('4')
-        +double('5')
+        each match in game.matches
+          +#{match.type}(match.position - 1, match.homePlayers, match.awayPlayers, match.sets)
 
     //-
       fieldset

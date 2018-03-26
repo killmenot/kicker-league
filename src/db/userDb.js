@@ -6,16 +6,16 @@ import models from './models'
 
 export default Object.assign({
 
-  getByGameIds: async (gameIds) => {
-    logger.info('db/matchDb|getByGameIds', {gameIds})
+  getByTeamId: async (teamId) => {
+    logger.info('db/userDb|getByTeamId', {teamId})
 
     const options = {
       where: {
-        gameId: gameIds
+        teamId: teamId
       }
     }
 
-    return await models.Match.findAll(options)
+    return await models.User.findAll(options)
   }
 
-}, dbBase(models.Match))
+}, dbBase(models.User))

@@ -1,16 +1,9 @@
 'use strict'
 
-export default (sequelize, DataTypes) => {
-  const Team = sequelize.define('team', {
-    name: {
-      allowNull: false,
-      type: DataTypes.STRING
-    },
-    location: {
-      allowNull: false,
-      type: DataTypes.STRING
-    }
-  })
-
-  return Team
-};
+export default class Team {
+  constructor(dbData = {}) {
+    this.id = dbData.id
+    this.name = dbData.name
+    this.location = dbData.location
+  }
+}

@@ -3,4 +3,4 @@
 import dbBase from './dbBase'
 import models from './models'
 
-export default Object.assign({}, dbBase(models.Game))
+export default Object.assign({}, dbBase(models.Team))

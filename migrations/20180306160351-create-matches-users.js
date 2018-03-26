@@ -9,6 +9,14 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      game_id: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'games',
+          key: 'id'
+        }
+      },
       match_id: {
         type: Sequelize.INTEGER,
         allowNull: false,

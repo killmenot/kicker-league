@@ -6,9 +6,12 @@ import express from 'express'
 import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
 import bodyParser from 'body-parser'
+import {logger} from './core'
 import routes from './routes'
 
 export default () => {
+  logger.info('app')
+
   const app = express()
 
   // view engine setup

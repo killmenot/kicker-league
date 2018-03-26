@@ -1,7 +1,7 @@
 'use strict'
 
 export default (sequelize, DataTypes) => {
-  const _Set = sequelize.define('set', {
+  const _Set = sequelize.define('Set', {
     homeScore: {
       allowNull: false,
       type: DataTypes.INTEGER,
@@ -25,6 +25,8 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.BOOLEAN,
       defaultValue: false
     }
+  }, {
+    tableName: 'sets'
   })
 
   _Set.associate = function (models) {
@@ -35,6 +37,16 @@ export default (sequelize, DataTypes) => {
         allowNull: false,
         name: 'matchId',
         field: 'match_id'
+      }
+    })
+
+    _Set.belongsTo(models.Game, {
+      as: 'Game',
+      onDelete: 'CASCADE',
+      foreignKey: {
+        allowNull: false,
+        name: 'gameId',
+        field: 'game_id'
       }
     })
   }

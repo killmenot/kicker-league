@@ -1,7 +1,7 @@
 'use strict'
 
 export default (sequelize, DataTypes) => {
-  const Penalty = sequelize.define('penalties', {
+  const Penalty = sequelize.define('Penalty', {
     position: {
       allowNull: false,
       type: DataTypes.STRING
@@ -16,6 +16,8 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       field: 'away_score'
     }
+  }, {
+    tableName: 'penalties'
   })
 
   return Penalty

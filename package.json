@@ -3,13 +3,16 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "nodemon -w src --exec babel-node src/server.js",
-    "build": "babel src -s -D -d dist",
+    "dev:db:migrate": "rm -f db.development.sqlite && sequelize db:migrate",
+    "dev:db:seeds": "sequelize db:seed:all",
+    "dev:db": "npm run dev:db:migrate && npm run dev:db:seeds",
+    "build": "cross-env NODE_ENV=development babel src -s -D -d dist",
     "start": "node dist/server.js",
     "prestart": "npm run -s build",
     "lint": "eslint src",
     "test": "npm run test-unit && npm run test-integration",
-    "test-unit": "cross-env NODE_ENV=test ./node_modules/.bin/mocha test/unit/*.test.js",
-    "test-integration": "cross-env NODE_ENV=test ./node_modules/.bin/mocha test/integration/*.test.js"
+    "test-unit": "cross-env NODE_ENV=test mocha test/unit/*.test.js",
+    "test-integration": "cross-env NODE_ENV=test mocha test/integration/*.test.js"
   },
   "dependencies": {
     "bluebird": "^3.5.1",

@@ -1,42 +1,50 @@
 'use strict'
 
 import {logger} from '../core'
-import models from '../models'
+import {userDb} from '../db'
+import {User} from '../models'
 
 export default {
 
-  getByTeamId: async (teamId) => {
-    logger.info('business/userLogic|getByTeamId')
+  getAll: async () => {
+    logger.info('business/userDb|getAll')
 
-    const options = {
-      where: {
-        teamId: teamId
-      }
-    }
+    const dbUsers = await userDb.getAll()
 
-    return await models.User.findAll(options)
+    return (dbUsers || []).map(x => new User(x))
   },
 
-  insert: async (teamId, props) => {
-    logger.info('business/userLogic|insert', {teamId, props})
+  getByIds: async (ids) => {
+    logger.info('business/userDb|getByIds', {ids})
 
-    return await models.User.create({
-      firstName: props.firstName,
-      lastName: props.lastName,
+    const dbUsers = await userDb.getByIds(ids)
+
+    return (dbUsers || []).map(x => new User(x))
+  },
+
+  getByTeamId: async (teamId) => {
+    logger.info('business/userLogic|getByTeamId', {teamId})
+
+    const dbUsers = await userDb.getByTeamId(teamId)
+
+    return (dbUsers || []).map(x => new User(x))
+  },
+
+  insert: async (teamId, values) => {
+    logger.info('business/userLogic|insert', {teamId, values})
+
+    const user = {
+      firstName: values.firstName,
+      lastName: values.lastName,
       teamId: teamId
-    })
+    }
+
+    return await userDb.insert(user)
   },
 
   delete: async (teamId, id) => {
     logger.info('business/userLogic|delete', {teamId, id})
 
-    const options = {
-      where: {
-        id: id,
-        teamId: teamId
-      }
-    }
-
-    return await models.User.destroy(options)
+    return await userDb.delete(id)
   }
 }

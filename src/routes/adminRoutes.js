@@ -14,6 +14,8 @@ router.get('/teams/:id/users/:userId/delete', userController.destroy)
 router.get('/games', gameController.list)
 router.get('/games/new', gameController.new)
 router.post('/games/create', gameController.create)
+router.get('/games/:id/edit', gameController.edit)
+router.post('/games/:id/update', gameController.update)
 router.get('/games/:id/delete', gameController.destroy)
 
 export default router
