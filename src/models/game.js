@@ -11,8 +11,8 @@ export default class Game {
       ''
     this.homeTeamId = dbData.homeTeamId || 0
     this.awayTeamId = dbData.awayTeamId || 0
-    this.homeScore = dbData.homeScore || -1
-    this.awayScore = dbData.awayScore || -1
+    this.homeScore = dbData.homeScore || 0
+    this.awayScore = dbData.awayScore || 0
     this.winner = dbData.winner || ''
     this.walkover = dbData.walkover || false
 
@@ -42,5 +42,9 @@ export default class Game {
     return this.homeTeam && this.awayTeam ?
       `${this.homeTeam.name} - ${this.awayTeam.name} (${this.homeTeam.location})` :
       ''
+  }
+
+  get scores() {
+    return `${this.homeScore}:${this.awayScore}`
   }
 }
