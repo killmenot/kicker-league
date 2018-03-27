@@ -94,8 +94,6 @@ mixin penalty(id)
             = user.fullName
 
 block content
-  h1= title
-
   form(action=game.id ? `/admin/games/${game.id}/update` : '/admin/games/create', method="post", class="well",
     ng-controller="GameEditController"
     ng-init=`init('${game.homeTeamId}', '${game.awayTeamId}')`

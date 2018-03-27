@@ -1,5 +1,10 @@
 # Kicker League
 
+## Pre-Install
+
+```
+cp .env.example .env # then set env variables
+```
 
 ## Development
 
