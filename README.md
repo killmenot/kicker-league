@@ -1,25 +1,40 @@
 # Kicker League
 
-## Starting App
 
-**Without Migrations**
+## Development
+
+```
+npm install
+npm run dev:db:rebuild
+npm run dev
+```
+
+
+## Production
+
+### Without Migrations
 
 ```
 npm install
 npm start
 ```
 
-**With Migrations**
+### With Migrations
 
 ```
 npm install
-node_modules/.bin/sequelize db:migrate
+npm run db:migrate
 npm start
 ```
 
-This will start the application and create an sqlite database in your app dir.
+
+## Run
+
 Just open [http://localhost:4000](http://localhost:4000).
 
-## Running Tests
 
-We have added some [Mocha](https://mochajs.org) based test. You can run them by `npm test`
+## Tests
+
+```
+npm test
+```
