@@ -11,7 +11,6 @@ module.exports = {
         away_team_id: 1,
         away_score: 0,
         winner: 'home',
-        walkover: false,
         created_at: new Date(),
         updated_at: new Date()
       }

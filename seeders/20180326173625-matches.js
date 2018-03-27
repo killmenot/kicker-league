@@ -9,7 +9,6 @@ module.exports = {
         position: 1,
         type: 'double',
         winner: 'home',
-        walkover: false,
         created_at: new Date(),
         updated_at: new Date()
       },
@@ -19,7 +18,6 @@ module.exports = {
         position: 2,
         type: 'double',
         winner: 'home',
-        walkover: false,
         created_at: new Date(),
         updated_at: new Date()
       },
@@ -29,7 +27,6 @@ module.exports = {
         position: 3,
         type: 'single',
         winner: 'draw',
-        walkover: false,
         created_at: new Date(),
         updated_at: new Date()
       },
@@ -39,7 +36,6 @@ module.exports = {
         position: 4,
         type: 'single',
         winner: 'home',
-        walkover: false,
         created_at: new Date(),
         updated_at: new Date()
       },
@@ -49,7 +45,6 @@ module.exports = {
         position: 5,
         type: 'double',
         winner: 'home',
-        walkover: false,
         created_at: new Date(),
         updated_at: new Date()
       },
@@ -59,7 +54,6 @@ module.exports = {
         position: 6,
         type: 'double',
         winner: 'home',
-        walkover: false,
         created_at: new Date(),
         updated_at: new Date()
       }

@@ -9,5 +9,9 @@ module.exports = {
   matchType: {
     SINGLE: 'single',
     DOUBLE: 'double'
+  },
+  walkover: {
+    L: 'L',
+    W: 'W'
   }
 }

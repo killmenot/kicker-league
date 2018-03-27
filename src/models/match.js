@@ -9,7 +9,6 @@ export default class Match {
     this.position = dbData.position
     this.type = dbData.type
     this.winner = dbData.winner
-    this.walkover = dbData.walkover
 
     this.sets = []
     this.homePlayers = []

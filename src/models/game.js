@@ -14,7 +14,6 @@ export default class Game {
     this.homeScore = dbData.homeScore || 0
     this.awayScore = dbData.awayScore || 0
     this.winner = dbData.winner || ''
-    this.walkover = dbData.walkover || false
 
     this.matches = []
   }

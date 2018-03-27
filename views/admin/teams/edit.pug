@@ -1,11 +1,9 @@
 extends ../layout
 
 block content
-  h1= title
-
   div(class="row")
     div(class="col-4")
-      h2 Create user
+      h3 Create user
 
       form(action=`/admin/teams/${team.id}/users/create`, method="post", class="well")
         div(class="form-group")
@@ -18,7 +16,7 @@ block content
         input(type="submit" class="btn btn-primary")
 
     div(class="col-6")
-      h2 Users
+      h3 Users
 
       table(class="table table-striped table-bordered table-hover")
         tr

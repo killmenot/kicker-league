@@ -30,11 +30,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.ENUM('home', 'away', 'draw')
       },
-      walkover: {
-        allowNull: false,
-        type: Sequelize.BOOLEAN,
-        defaultValue: false
-      },
       created_at: {
         allowNull: false,
         type: Sequelize.DATE

@@ -2,6 +2,8 @@
 
 import constants from '../shared/constants'
 
+const walkoverValues = [constants.walkover.W, constants.walkover.L]
+
 const utils = {
 
   parsePlayers: (players) => {
@@ -42,6 +44,16 @@ const utils = {
     }
 
     return constants.winner.DRAW
+  },
+
+  parseWalkover: (homeScore, awayScore) => {
+    return walkoverValues.includes(homeScore.toUpperCase()) && walkoverValues.includes(awayScore.toUpperCase())
+  },
+
+  parseScore: (s) => {
+    return walkoverValues.includes(s.toUpperCase()) ?
+      0 :
+      parseInt(s, 10);
   }
 
 }

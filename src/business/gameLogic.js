@@ -22,11 +22,11 @@ const gameLogic = {
     logger.info('business/gameLogic|new')
 
     const game = new Game()
+
     game.matches = matchTemplate.map((type, index) => ({
       position: index + 1,
       type: type
     }))
-
     game.matches.forEach(x => {
       x.sets = [
         {
@@ -158,18 +158,21 @@ const gameLogic = {
         gameId,
         matchId: x,
         winner: utils.parseSetWinner(homeValues.scores[index][0], awayValues.scores[index][0]),
+        walkover: utils.parseWalkover(homeValues.scores[index][0], awayValues.scores[index][0]),
         position: 1,
-        homeScore: homeValues.scores[index][0],
-        awayScore: awayValues.scores[index][0]
+        homeScore: utils.parseScore(homeValues.scores[index][0]),
+        awayScore: utils.parseScore(awayValues.scores[index][0]),
+
       },
       {
         id: nextSetId++,
         gameId,
         matchId: x,
         winner: utils.parseSetWinner(homeValues.scores[index][1], awayValues.scores[index][1]),
+        walkover: utils.parseWalkover(homeValues.scores[index][0], awayValues.scores[index][0]),
         position: 2,
-        homeScore: homeValues.scores[index][1],
-        awayScore: awayValues.scores[index][1]
+        homeScore: utils.parseScore(homeValues.scores[index][1]),
+        awayScore: utils.parseScore(awayValues.scores[index][1])
       }
     ])
 

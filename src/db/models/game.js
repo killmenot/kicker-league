@@ -19,11 +19,6 @@ export default (sequelize, DataTypes) => {
     winner: {
       allowNull: false,
       type: DataTypes.ENUM('home', 'away', 'draw')
-    },
-    walkover: {
-      allowNull: false,
-      type: DataTypes.BOOLEAN,
-      defaultValue: false
     }
   }, {
     tableName: 'games'
