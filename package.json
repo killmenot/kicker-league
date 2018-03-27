@@ -15,6 +15,10 @@
     "test-unit": "cross-env NODE_ENV=test mocha test/unit/*.test.js",
     "test-integration": "cross-env NODE_ENV=test mocha test/integration/*.test.js"
   },
+  "pre-commit": [
+    "lint",
+    "build"
+  ],
   "dependencies": {
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
@@ -42,6 +46,7 @@
     "expect.js": "^0.3.1",
     "mocha": "^3.0.2",
     "nodemon": "^1.17.2",
+    "pre-commit": "^1.2.2",
     "supertest": "^2.0.0"
   }
 }
