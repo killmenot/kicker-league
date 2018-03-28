@@ -45,14 +45,22 @@ export default {
       const gameValues = _.pick(req.body, ['date', 'homeTeamId', 'awayTeamId'])
       const homeValues = {
         scores: req.body.homeScores,
-        players: req.body.homePlayers,
+        players: req.body.homePlayers
       }
       const awayValues = {
         scores: req.body.awayScores,
-        players: req.body.awayPlayers,
+        players: req.body.awayPlayers
+      }
+      const homePenalties = {
+        scores: req.body.homePenaltyScores,
+        players: req.body.homePenaltyPlayers
+      }
+      const awayPenalties = {
+        scores: req.body.awayPenaltyScores,
+        players: req.body.awayPenaltyPlayers
       }
 
-      await gameLogic.insert(gameValues, homeValues, awayValues)
+      await gameLogic.insert(gameValues, homeValues, awayValues, homePenalties, awayPenalties)
 
       return res.redirect('/admin/games')
     } catch (err) {
@@ -68,6 +76,8 @@ export default {
 
       const game = await gameLogic.getById(id)
       const teams = await teamLogic.getAll()
+
+      console.log(JSON.stringify(game, null, 2))
 
       return res.render('admin/games/edit', {
         title: `Admin | Games | ${game.title}`,
@@ -87,14 +97,22 @@ export default {
       const gameValues = _.pick(req.body, ['date', 'homeTeamId', 'awayTeamId'])
       const homeValues = {
         scores: req.body.homeScores,
-        players: req.body.homePlayers,
+        players: req.body.homePlayers
       }
       const awayValues = {
         scores: req.body.awayScores,
-        players: req.body.awayPlayers,
+        players: req.body.awayPlayers
+      }
+      const homePenalties = {
+        scores: req.body.homePenaltyScores,
+        players: req.body.homePenaltyPlayers
+      }
+      const awayPenalties ={
+        scores: req.body.awayPenaltyScores,
+        players: req.body.awayPenaltyPlayers
       }
 
-      await gameLogic.update(id, gameValues, homeValues, awayValues)
+      await gameLogic.update(id, gameValues, homeValues, awayValues, homePenalties, awayPenalties)
 
       return res.redirect('/admin/games')
     } catch (err) {

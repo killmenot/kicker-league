@@ -22,7 +22,8 @@ mixin double(index, homePlayers, awayPlayers, sets)
         required,
         ng-repeat="i in numbers track by $index"
         ng-model=`awayPlayers[${index}][$index]`,
-        ng-options="user as user.fullName for user in awayUsers track by user.id"
+        ng-options="user as user.fullName for user in awayUsers track by user.id",
+        ng-disabled="isAwayDisabled()"
       )
         option(value="", selected="selected")
 
@@ -36,13 +37,14 @@ mixin double(index, homePlayers, awayPlayers, sets)
         required,
         ng-repeat="i in numbers track by $index",
         ng-model=`homePlayers[${index}][$index]`,
-        ng-options="user as user.fullName for user in homeUsers track by user.id"
+        ng-options="user as user.fullName for user in homeUsers track by user.id",
+        ng-disabled="isHomeDisabled()"
       )
         option(value="", selected="selected")
 
 mixin single(index, homePlayers, awayPlayers, sets)
   div(class="row form-group align-items-center",
-      ng-init=`assignPlayers('${index}', '${homePlayers.map(x =>x.id)}', '${awayPlayers.map(x =>x.id)}', 'single')`
+      ng-init=`assignPlayers('${index}', '${homePlayers.map(x => x.id)}', '${awayPlayers.map(x => x.id)}', 'single')`
   )
     div(class="col-5")
       select(
@@ -50,7 +52,8 @@ mixin single(index, homePlayers, awayPlayers, sets)
         name=`awayPlayers[${index}]`,
         required,
         ng-model=`awayPlayers[${index}]`,
-        ng-options="user as user.fullName for user in awayUsers track by user.id"
+        ng-options="user as user.fullName for user in awayUsers track by user.id",
+        ng-disabled="isAwayDisabled()"
       )
         option(value="", selected="selected")
 
@@ -64,34 +67,42 @@ mixin single(index, homePlayers, awayPlayers, sets)
         required,
         ng-model=`homePlayers[${index}]`,
         ng-options="user as user.fullName for user in homeUsers track by user.id",
+        ng-disabled="isHomeDisabled()"
       )
         option(value="", selected="selected")
 
-mixin penalty(id)
-  div(class="row form-group")
-    div(class="col-sm-5")
-      select(name=`${id}_home_player`, class="form-control")
-        option(value="0")
-        each user in users
-          option(value=user.id)
-            = user.fullName
+mixin penalty(index, penalty)
+  div(
+    class="row form-group",
+    ng-init=`assignPenaltyPlayer('${index}', '${penalty.homePlayerId}', '${penalty.awayPlayerId}')`
+  )
+    div(class="col-5")
+      select(class="form-control",
+        name=`awayPenaltyPlayers[${index}]`,
+        ng-model=`awayPenaltyPlayers[${index}]`,
+        ng-options="user as user.fullName for user in awayUsers track by user.id",
+        ng-disabled="isAwayDisabled()"
+      )
+        option(value="", selected="selected")
 
-    div(class="col-sm-2 text-center")
-      div(class="row")
-        div(class="col")
-          div(class="checkbox")
-            label
-              input(type="checkbox", name=`home_penalty_1`)
-        div(class="col")
-          div(class="checkbox")
-            label
-              input(type="checkbox", name=`home_penalty_1`)
-    div(class="col-sm-5")
-      select(name=`${id}_away_player`, class="form-control")
-        option(value="0")
-        each user in users
-          option(value=user.id)
-            = user.fullName
+    div(class="col-2")
+      +penaltySet(index, penalty.homeScore, penalty.awayScore)
+
+    div(class="col-5")
+      select(class="form-control",
+        name=`homePenaltyPlayers[${index}]`,
+        ng-model=`homePenaltyPlayers[${index}]`,
+        ng-options="user as user.fullName for user in homeUsers track by user.id",
+        ng-disabled="isHomeDisabled()"
+      )
+        option(value="", selected="selected")
+
+mixin penaltySet(index, homeScore, awayScore)
+  div(class="row no-gutters")
+    div(class="col")
+      input(type="text", name=`awayPenaltyScores[${index}]`, maxlength="1", class="form-control", value=awayScore)
+    div(class="col")
+      input(type="text", name=`homePenaltyScores[${index}]`, maxlength="1", class="form-control", value=homeScore)
 
 block content
   form(action=game.id ? `/admin/games/${game.id}/update` : '/admin/games/create', method="post", class="well",
@@ -120,7 +131,7 @@ block content
         label(for="homeTeamId")
           | Home
         select(name="homeTeamId", id="homeTeamId", class="form-control", ng-model="homeTeamId", required)
-          option(value="0")
+          option(value="")
           each team in teams
             option(value=team.id, selected=game.homeTeamId === team.id)
               = team.name
@@ -128,7 +139,7 @@ block content
         label(for="awayTeamId")
           | Away
         select(name="awayTeamId", id="awayTeamId", class="form-control", ng-model="awayTeamId", required)
-          option(value="0")
+          option(value="")
           each team in teams
             option(value=team.id, selected=game.awayTeamId === team.id)
               = team.name
@@ -149,23 +160,10 @@ block content
         each match in game.matches
           +#{match.type}(match.position - 1, match.homePlayers, match.awayPlayers, match.sets)
 
-    //-
-      fieldset
+    fieldset
       legend
         | Penalties
-      div(class="form-group")
-        div(class="row")
-          div(class="col-xs-5 text-center")
-            h5 Home
-          div(class="col-xs-2 text-center text-nowrap")
-            h5 Score
-          div(class="col-xs-5 text-center")
-            h5 Away
-        +penalty(1)
-        +penalty(2)
-        +penalty(3)
-        +penalty(4)
-        +penalty(5)
+        each penalty in game.penalties
+          +penalty(penalty.position - 1, penalty)
 
-    input(type="submit" class="btn btn-primary")
-
+    input(type="submit", class="btn btn-primary")

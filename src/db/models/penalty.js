@@ -20,33 +20,33 @@ export default (sequelize, DataTypes) => {
     tableName: 'penalties'
   })
 
+  Penalty.associate = function (models) {
+    Penalty.belongsTo(models.Game, {
+      as: 'Game',
+      onDelete: 'CASCADE',
+      foreignKey: {
+        allowNull: false,
+        name: 'gameId',
+        field: 'game_id'
+      }
+    })
+
+    Penalty.belongsTo(models.User, {
+      as: 'HomePlayer',
+      foreignKey: {
+        name: 'homePlayerId',
+        field: 'home_player_id'
+      }
+    })
+
+    Penalty.belongsTo(models.User, {
+      as: 'AwayPlayer',
+      foreignKey: {
+        name: 'awayPlayerId',
+        field: 'away_player_id'
+      }
+    })
+  }
+
   return Penalty
 }
-
-  // game_id: {
-  //   type: Sequelize.INTEGER,
-  //   allowNull: false,
-  //   references: {
-  //     model: 'Game',
-  //     key: 'id'
-  //   }
-  // },
-
-  // home_player_id: {
-  //   type: Sequelize.INTEGER,
-  //   allowNull: false,
-  //   references: {
-  //     model: 'User',
-  //     key: 'id'
-  //   }
-  // },
-
-  // away_player_id: {
-  //   type: Sequelize.INTEGER,
-  //   allowNull: false,
-  //   references: {
-  //     model: 'User',
-  //     key: 'id'
-  //   }
-  // },
-

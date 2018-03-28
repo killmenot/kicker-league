@@ -54,6 +54,12 @@ const utils = {
     return walkoverValues.includes(s.toUpperCase()) ?
       0 :
       parseInt(s, 10);
+  },
+
+  buildPenalties: () => {
+    return [1, 2, 3, 4, 5].map(x => ({
+      position: x
+    }))
   }
 
 }

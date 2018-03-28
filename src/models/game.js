@@ -16,6 +16,7 @@ export default class Game {
     this.winner = dbData.winner || ''
 
     this.matches = []
+    this.penalties = []
   }
 
   setHomeTeam(team) {
@@ -35,6 +36,13 @@ export default class Game {
 
     const newMatches = this.matches.concat(matches)
     this.matches = _.sortBy(newMatches, x => x.position)
+  }
+
+  addPenalties(penalties) {
+    if (!penalties) return
+
+    const newPenalties = this.penalties.concat(penalties)
+    this.penalties = _.sortBy(newPenalties, x => x.position)
   }
 
   get title() {

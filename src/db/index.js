@@ -4,6 +4,7 @@ import dbBase, {transaction} from './dbBase'
 import gameDb from './gameDb'
 import matchDb from './matchDb'
 import matchUsersDb from './matchUsersDb'
+import penaltyDb from './penaltyDb'
 import setDb from './setDb'
 import teamDb from './teamDb'
 import userDb from './userDb'
@@ -14,6 +15,7 @@ export {
   gameDb,
   matchDb,
   matchUsersDb,
+  penaltyDb,
   setDb,
   teamDb,
   userDb

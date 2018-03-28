@@ -19,10 +19,13 @@ angular.module('ngLeague', ['ngResource'])
 .controller('GameEditController', ['$scope', 'Team', ($scope, Team) => {
   $scope.homePlayers = [];
   $scope.awayPlayers = [];
+  $scope.homePenaltyPlayers = [];
+  $scope.awayPenaltyPlayers = [];
   $scope.numbers = [1, 2];
-  $scope.homeTeamId = '0';
-  $scope.awayTeamId = '0';
+  $scope.homeTeamId = '';
+  $scope.awayTeamId = '';
 
+  const assignPlayer = (id) => ({id})
   const assignHandler = {
     single,
     double
@@ -43,26 +46,18 @@ angular.module('ngLeague', ['ngResource'])
   function double(index, homePlayerIds, awayPlayerIds) {
     homePlayerIds.forEach((x, i) => {
       $scope.homePlayers[index] = $scope.homePlayers[index] || []
-      $scope.homePlayers[index][i] = {
-        id: x
-      };
+      $scope.homePlayers[index][i] = assignPlayer(x);
     });
 
     awayPlayerIds.forEach((x, i) => {
       $scope.awayPlayers[index] = $scope.awayPlayers[index] || []
-      $scope.awayPlayers[index][i] = {
-        id: x
-      };
+      $scope.awayPlayers[index][i] = assignPlayer(x);
     });
   }
 
   function single(index, homePlayerIds, awayPlayerIds) {
-    $scope.homePlayers[index] = {
-      id: homePlayerIds[0]
-    };
-    $scope.awayPlayers[index] = {
-      id: awayPlayerIds[0]
-    };
+    $scope.homePlayers[index] = assignPlayer(homePlayerIds[0]);
+    $scope.awayPlayers[index] = assignPlayer(awayPlayerIds[0]);
   }
 
   $scope.init = (homeId, awayId) => {
@@ -84,9 +79,16 @@ angular.module('ngLeague', ['ngResource'])
     const homePlayerIds = homeIds.split(',').map(x => parseInt(x, 10));
     const awayPlayerIds = awayIds.split(',').map(x => parseInt(x, 10));
 
-
     assignHandler[type](index, homePlayerIds, awayPlayerIds);
   };
+
+  $scope.assignPenaltyPlayer = (index, homePlayerId, awayPlayerId) => {
+    $scope.homePenaltyPlayers[index] = assignPlayer(homePlayerId);
+    $scope.awayPenaltyPlayers[index] = assignPlayer(awayPlayerId);
+  };
+
+  $scope.isHomeDisabled = () => $scope.homeTeamId === '';
+  $scope.isAwayDisabled = () => $scope.awayTeamId === '';
 
   $scope.$watch('homeTeamId', (newValue, oldValue) => {
     if (newValue !== oldValue) {
