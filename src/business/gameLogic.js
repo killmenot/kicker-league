@@ -325,10 +325,10 @@ const gameLogic = {
     await transaction(async (t) => {
       const options = {transaction: t}
 
+      if (dbPenaltiesIds.length > 0) await penaltyDb.deleteBulk(dbPenaltiesIds, options)
       await matchUsersDb.deleteBulk(dbMatchUsersIds, options)
       await setDb.deleteBulk(dbSetIds, options)
       await matchDb.deleteBulk(dbMatchIds, options)
-      if (dbPenaltiesIds.length > 0) await penaltyDb.deleteBulk(dbPenaltiesIds, options)
 
       await gameDb.update(id, gameValues, options)
 

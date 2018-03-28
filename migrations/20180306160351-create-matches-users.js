@@ -12,6 +12,7 @@ module.exports = {
       game_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        onDelete: 'CASCADE',
         references: {
           model: 'games',
           key: 'id'
@@ -20,6 +21,7 @@ module.exports = {
       match_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        onDelete: 'CASCADE',
         references: {
           model: 'matches',
           key: 'id'
@@ -32,6 +34,7 @@ module.exports = {
       home_player_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        onDelete: 'CASCADE',
         references: {
           model: 'users',
           key: 'id'
@@ -40,6 +43,7 @@ module.exports = {
       away_player_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        onDelete: 'CASCADE',
         references: {
           model: 'users',
           key: 'id'

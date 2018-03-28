@@ -30,7 +30,7 @@ export default (Model) => ({
     return await Model.findAll(options)
   },
 
-  insert: async (values, {transaction}) => {
+  insert: async (values, {transaction} = {}) => {
     logger.info('db/dbBase|insert', {values})
 
     const options = {}
@@ -42,7 +42,7 @@ export default (Model) => ({
     return await Model.create(values, options)
   },
 
-  insertBulk: async (records, {transaction}) => {
+  insertBulk: async (records, {transaction} = {}) => {
     logger.info('db/dbBase|insertBulk', {records})
 
     const options = {}
@@ -54,7 +54,7 @@ export default (Model) => ({
     return await Model.bulkCreate(records, options)
   },
 
-  update: async (id, values, {transaction}) => {
+  update: async (id, values, {transaction} = {}) => {
     logger.info('db/dbBase|update', {id, values})
 
     const options = {
@@ -77,7 +77,7 @@ export default (Model) => ({
   //   return await Model.upda(records)
   // },
 
-  delete: async (id, {transaction}) => {
+  delete: async (id, {transaction} = {}) => {
     logger.info('db/dbBase|delete', {id})
 
     const options = {
@@ -93,7 +93,7 @@ export default (Model) => ({
     return await Model.destroy(options)
   },
 
-  deleteBulk: async (ids, {transaction}) => {
+  deleteBulk: async (ids, {transaction} = {}) => {
     logger.info('db/dbBase|deleteBulk', {ids})
 
     const options = {
