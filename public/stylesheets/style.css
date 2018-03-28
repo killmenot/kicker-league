@@ -19,6 +19,10 @@ ul li {
   padding: 5px;
 }
 
+.head {
+  background-color: DimGray;
+}
+
 .gold {
   background-color: gold;
 }

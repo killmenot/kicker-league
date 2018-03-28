@@ -1,6 +1,13 @@
 extends layout
 
 block content
+  -
+    const classList = {
+      1: 'gold',
+      2: 'silver',
+      3: 'bronze'
+    }
+
   h1= title
 
   div(class="row")
@@ -17,8 +24,8 @@ block content
               td(class=`text-center ${rowIndex === cellIndex ? 'bg-dark' : ''}`)= cell.game.scores
 
     div(class="col")
-      table(class="table table-striped table-bordered")
-        tr
+      table(class="table table-bordered")
+        tr(class="head")
           th #
           th Название
           th(title="Сыграно") И
@@ -29,7 +36,7 @@ block content
           th(title="Очки") O
           th +/-
         each item, index in list
-          tr
+          tr(class=`${classList[index+1] || 'other'}`)
             th= index + 1
             th= item.team.name
             th= item.gamesCount
