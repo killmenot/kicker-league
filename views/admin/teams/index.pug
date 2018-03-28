@@ -14,6 +14,10 @@ block content
           label(for="location")
             | Location
           input(type="text", name="location", class="form-control")
+        div(class="form-group")
+          label(for="location")
+            | Abbreviation
+          input(type="text", name="abbreviation", class="form-control")
         input(type="submit" class="btn btn-primary")
 
     div(class="col-6")
@@ -26,6 +30,8 @@ block content
           th
             | Location
           th
+            | Abbr
+          th
             | &nbsp;
           th
             | &nbsp;
@@ -33,6 +39,8 @@ block content
           tr
             td
               = team.name
+            td
+              = team.abbreviation
             td
               = team.location
             td

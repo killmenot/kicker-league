@@ -1,5 +1,6 @@
 'use strict'
 
+import {dashboardLogic} from '../business'
 import {logger} from '../core'
 
 export default {
@@ -16,9 +17,13 @@ export default {
     logger.info('controllers/homeController|index')
 
     try {
+      const {grid, teams, list} = await dashboardLogic.getStats()
+
       res.render('index', {
-        title: 'Kicker League',
-        teams: []
+        title: 'Taganrog Kicker League, Season 2018',
+        teams: teams,
+        grid: grid,
+        list: list
       });
     } catch (err) {
       return next(err)

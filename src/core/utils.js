@@ -34,7 +34,7 @@ const utils = {
     throw new Error('There is no draw in set.')
   },
 
-  parseGameWinner: (homeScore, awayScore) => {
+  parseGameWinner: (homeScore, awayScore, penaltiesValues) => {
     if (homeScore > awayScore) {
       return constants.winner.HOME
     }
@@ -43,7 +43,12 @@ const utils = {
       return constants.winner.AWAY
     }
 
-    return constants.winner.DRAW
+    const homePenaltyScores = penaltiesValues.filter(x => x.homeScore).length
+    const awayPenaltyScores = penaltiesValues.filter(x => x.awayScore).length
+
+    return homePenaltyScores > awayPenaltyScores ?
+      constants.winner.HOME_WINS_DRAW :
+      constants.winner.AWAY_WINS_DRAW
   },
 
   parseWalkover: (homeScore, awayScore) => {

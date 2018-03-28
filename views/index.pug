@@ -3,36 +3,40 @@ extends layout
 block content
   h1= title
 
-  div(class="col-md-4")
-    h2 Create team
+  div(class="row")
+    div(class="col")
+      table(class="table table-striped table-bordered")
+        tr
+          th
+          each team in teams
+            th= team.abbreviation
+        each row, rowIndex in grid
+          tr
+            td(class="text-nowrap")= row[0].homeTeam.name
+            each cell, cellIndex in row
+              td(class=`text-center ${rowIndex === cellIndex ? 'bg-dark' : ''}`)= cell.game.scores
 
-    form(action="/teams/create", method="post", class="well")
-      div(class="form-group")
-        label(for="username")
-          | Team name
-        input(type="text", name="name", class="form-control")
-      input(type="submit" class="btn btn-primary")
-
-  div(class="col-md-6")
-    h2 Teams
-
-    ul
-    each team in teams
-      li
-        strong
-          = team.name
-        | &nbsp;
-        a(href="/teams/" + team.id + "/destroy", class="btn btn-xs btn-warning") delete
-        ul
-          li
-            | Create user
-            form(action="/teams/" + team.id + "/users/create", method="post", class="form-inline")
-              div(class="form-group")
-                input(type="text", name="name", class="input-sm form-control")
-                input(type="submit", class="btn btn-sm btn-primary")
-          each user in team.users
-            li
-              strong
-                = user.name
-              | &nbsp;
-              a(href="/teams/" + team.id + "/users/" + user.id + "/destroy",  class="btn btn-xs btn-warning") delete
+    div(class="col")
+      table(class="table table-striped table-bordered")
+        tr
+          th #
+          th Название
+          th(title="Сыграно") И
+          th(title="Победы") В
+          th(title="Победы после ничей") ВН
+          th(title="Ничьи") Н
+          th(title="Поражения") П
+          th(title="Очки") O
+          th +/-
+        each item, index in list
+          tr
+            th= index + 1
+            th= item.team.name
+            th= item.gamesCount
+            th= item.winsCount
+            th= item.winsAfterDrawCount
+            th= item.drawsCount
+            th= item.losesCount
+            th= item.points
+            th= item.odds
+  

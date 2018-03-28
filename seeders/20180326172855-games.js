@@ -13,6 +13,17 @@ module.exports = {
         winner: 'home',
         created_at: new Date(),
         updated_at: new Date()
+      },
+      {
+        id: 2,
+        date: '04-03-2018',
+        home_team_id: 1,
+        home_score: 3,
+        away_team_id: 4,
+        away_score: 3,
+        winner: 'awd',
+        created_at: new Date(),
+        updated_at: new Date()
       }
     ], {});
   },

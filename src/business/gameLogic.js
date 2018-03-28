@@ -211,12 +211,12 @@ const gameLogic = {
     return _.flatten(matchUsers)
   },
 
-  processGameForInsert: (nextId, values, matchData) => {
-    logger.info('business/gameLogic|processGameForInsert', {nextId, values, matchData})
+  processGameForInsert: (nextId, values, matchData, penaltiesValues) => {
+    logger.info('business/gameLogic|processGameForInsert', {nextId, values, matchData, penaltiesValues})
 
     const homeScore = matchData.filter(x => x.match.winner === constants.winner.HOME).length
     const awayScore = matchData.filter(x => x.match.winner === constants.winner.AWAY).length
-    const winner = utils.parseGameWinner(homeScore, awayScore)
+    const winner = utils.parseGameWinner(homeScore, awayScore, penaltiesValues)
 
     return {
       id: nextId,
@@ -245,12 +245,12 @@ const gameLogic = {
     return penalties.filter(x => x.homePlayerId && x.awayPlayerId)
   },
 
-  processGameForUpdate: (values, matchData) => {
-    logger.info('business/gameLogic|processGameForUpdate', {values, matchData})
+  processGameForUpdate: (values, matchData, penaltiesValues) => {
+    logger.info('business/gameLogic|processGameForUpdate', {values, matchData, penaltiesValues})
 
     const homeScore = matchData.filter(x => x.match.winner === constants.winner.HOME).length
     const awayScore = matchData.filter(x => x.match.winner === constants.winner.AWAY).length
-    const winner = utils.parseGameWinner(homeScore, awayScore)
+    const winner = utils.parseGameWinner(homeScore, awayScore, penaltiesValues)
 
     return {
       homeScore,
@@ -275,12 +275,12 @@ const gameLogic = {
     const nextPenaltyId = lastPenaltyId + 1
 
     const matchData = gameLogic.processMatchesForInsert(nextMatchId, nextGameId, homeValues, awayValues)
-    const gameValues = gameLogic.processGameForInsert(nextGameId, values, matchData)
     const matchIds = matchData.map(x => x.match.id)
     const matchesValues = matchData.map(x => x.match)
     const matchUsersValues = gameLogic.processMatchUsersForInsert(nextGameId, matchData)
     const setsValues = gameLogic.processSetsForInsert(nextSetId, nextGameId, matchIds, homeValues, awayValues)
     const penaltiesValues = gameLogic.processPenaltiesForInsert(nextPenaltyId, nextGameId, homePenalties, awayPenalties)
+    const gameValues = gameLogic.processGameForInsert(nextGameId, values, matchData, penaltiesValues)
 
     await transaction(async (t) => {
       const options = {transaction: t}
@@ -315,12 +315,12 @@ const gameLogic = {
     const nextPenaltyId = lastPenaltyId + 1
 
     const matchData = gameLogic.processMatchesForInsert(nextMatchId, id, homeValues, awayValues)
-    const gameValues = gameLogic.processGameForUpdate(values, matchData)
     const matchIds = matchData.map(x => x.match.id)
     const matchesValues = matchData.map(x => x.match)
     const matchUsersValues = gameLogic.processMatchUsersForInsert(id, matchData)
     const setsValues = gameLogic.processSetsForInsert(nextSetId, id, matchIds, homeValues, awayValues)
     const penaltiesValues = gameLogic.processPenaltiesForInsert(nextPenaltyId, id, homePenalties, awayPenalties)
+    const gameValues = gameLogic.processGameForUpdate(values, matchData, penaltiesValues)
 
     await transaction(async (t) => {
       const options = {transaction: t}

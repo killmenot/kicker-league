@@ -114,6 +114,54 @@ module.exports = {
         team_id: 1,
         created_at: new Date(),
         updated_at: new Date()
+      },
+      {
+        id: 15,
+        first_name: 'Кирилл',
+        last_name: 'Смирнов',
+        team_id: 4,
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        id: 16,
+        first_name: 'Глеб',
+        last_name: 'Болтаев',
+        team_id: 4,
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        id: 17,
+        first_name: 'Анастасия',
+        last_name: 'Шибаева',
+        team_id: 4,
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        id: 18,
+        first_name: 'Владислав',
+        last_name: 'Коновалов',
+        team_id: 4,
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        id: 19,
+        first_name: 'Сергей',
+        last_name: 'Наливайка',
+        team_id: 4,
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        id: 20,
+        first_name: 'Александр',
+        last_name: 'Лашуков',
+        team_id: 4,
+        created_at: new Date(),
+        updated_at: new Date()
       }
     ], {});
   },

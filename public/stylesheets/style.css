@@ -18,3 +18,19 @@ h1 {
 ul li {
   padding: 5px;
 }
+
+.gold {
+  background-color: gold;
+}
+
+.silver {
+  background-color: silver;
+}
+
+.bronze {
+  background-color: DarkGoldenrod;
+}
+
+.other {
+  background-color: CornflowerBlue;
+}

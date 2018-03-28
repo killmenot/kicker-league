@@ -39,7 +39,7 @@ module.exports = {
       },
       winner: {
         allowNull: false,
-        type: Sequelize.ENUM('home', 'away', 'draw')
+        type: Sequelize.ENUM('home', 'away', 'hwd', 'awd')
       },
       created_at: {
         allowNull: false,
@@ -51,7 +51,7 @@ module.exports = {
       }
     });
   },
-  down: (queryInterface, Sequelize) => {
+  down: (queryInterface) => {
     return queryInterface.dropTable('games');
   }
 };

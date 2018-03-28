@@ -5,5 +5,6 @@ export default class Team {
     this.id = dbData.id
     this.name = dbData.name
     this.location = dbData.location
+    this.abbreviation = dbData.abbreviation
   }
 }

@@ -29,7 +29,8 @@ export default {
 
     const team = {
       name: values.name,
-      location: values.location
+      location: values.location,
+      abbreviation: values.abbreviation
     }
 
     return await teamDb.insert(team)

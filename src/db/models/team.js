@@ -9,6 +9,10 @@ export default (sequelize, DataTypes) => {
     location: {
       allowNull: false,
       type: DataTypes.STRING
+    },
+    abbreviation: {
+      allowNull: false,
+      type: DataTypes.STRING
     }
   }, {
     tableName: 'teams'

@@ -14,6 +14,7 @@ export default class Game {
     this.homeScore = dbData.homeScore || 0
     this.awayScore = dbData.awayScore || 0
     this.winner = dbData.winner || ''
+    this.penalty = dbData.penalty || ''
 
     this.matches = []
     this.penalties = []
@@ -53,5 +54,13 @@ export default class Game {
 
   get scores() {
     return `${this.homeScore}:${this.awayScore}`
+  }
+
+  get key() {
+    return Game.buildKey(this.homeTeamId, this.awayTeamId)
+  }
+
+  static buildKey(homeTeamId, awayTeamId) {
+    return `H${homeTeamId}A${awayTeamId}`
   }
 }
