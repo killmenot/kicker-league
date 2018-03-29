@@ -1,10 +1,11 @@
 'use strict'
 
 import express from 'express'
-import {gameController, teamController, userController} from '../controllers'
+import {adminController, gameController, teamController, userController} from '../controllers'
 
 const router = express.Router()
 
+router.get('/', adminController.index)
 router.get('/teams', teamController.list)
 router.post('/teams/create', teamController.create)
 router.get('/teams/:id/edit', teamController.edit)
