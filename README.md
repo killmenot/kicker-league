@@ -10,8 +10,8 @@ cp .env.example .env # then set env variables
 
 ```
 npm install
-npm run dev:db:rebuild
-npm run dev
+npm run db:dev:rebuild
+npm run start:dev
 ```
 
 
