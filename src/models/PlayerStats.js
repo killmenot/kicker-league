@@ -31,7 +31,7 @@ export default class PlayerStats {
     this.double = this.filterByType(stats, wins, draws, loses, [DOUBLE])
     this.all = this.filterByType(stats, wins, draws, loses, [SINGLE, DOUBLE])
 
-    this.min = this.user.team.playedGamesCount * constants.MIN_MATCHES_PER_GAME
+    this.min = (this.user.team.playedGamesCount * constants.MIN_MATCHES_PER_GAME).toFixed(2)
     this.playedMatchesCount = 0
   }
 

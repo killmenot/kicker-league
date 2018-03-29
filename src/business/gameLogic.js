@@ -123,8 +123,9 @@ const gameLogic = {
     logger.info('business/gameLogic|getAll')
 
     const dbGames = await gameDb.getAll()
+    const games = await gameLogic.processGamesForResponse(dbGames)
 
-    return gameLogic.processGamesForResponse(dbGames)
+    return _.orderBy(games, x => [x.date], ['asc'])
   },
 
   getById: async (id) => {
