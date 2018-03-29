@@ -97,7 +97,7 @@ export default {
 
         return y
       })
-      .orderBy(x => [x.all.winsCount, x.all.odds, x.all.drawsCount], ['desc', 'desc', 'desc'])
+      .orderBy([x => x.all.winsCount, x=> x.all.odds], ['desc', 'desc'])
       .partition(x => x.isActive)
       .value()
   }
