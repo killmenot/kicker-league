@@ -1,10 +1,13 @@
 {
   "name": "kicker-league",
   "version": "1.0.0",
+  "engines": {
+    "node": "9.7.1"
+  },
   "scripts": {
     "build": "cross-env NODE_ENV=development babel src -s -D -d dist",
     "prestart": "npm run -s build",
-    "start": "node dist/server.js",
+    "start": "node index.js",
     "start:dev": "nodemon -w src --exec babel-node src/server.js",
     "db:migrate": "sequelize db:migrate",
     "db:dev:clean": "rm -f db.development.sqlite",
@@ -20,6 +23,7 @@
     "build"
   ],
   "dependencies": {
+    "babel-polyfill": "^6.26.0",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
     "cookie-parser": "^1.4.3",
