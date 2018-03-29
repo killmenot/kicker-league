@@ -223,7 +223,7 @@ const gameLogic = {
       homeScore,
       awayScore,
       winner,
-      date: moment(values.date, 'MM/DD/YYYY').format('DD-MM-YYYY'),
+      date: moment(values.date, 'MM/DD/YYYY').format('YYYY-MM-DD'),
       homeTeamId: values.homeTeamId,
       awayTeamId: values.awayTeamId
     }
@@ -256,7 +256,7 @@ const gameLogic = {
       homeScore,
       awayScore,
       winner,
-      date: moment(values.date, 'MM/DD/YYYY').format('DD-MM-YYYY'),
+      date: moment(values.date, 'MM/DD/YYYY').format('YYYY-MM-DD'),
       homeTeamId: values.homeTeamId,
       awayTeamId: values.awayTeamId
     }
