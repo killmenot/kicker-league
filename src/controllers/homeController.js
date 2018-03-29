@@ -20,7 +20,7 @@ export default {
       const {grid, teams, list} = await dashboardLogic.getGameStats()
 
       res.render('index', {
-        title: 'Taganrog Kicker League, Season 2018 | Teams',
+        title: 'Таблица',
         teams: teams,
         grid: grid,
         list: list
@@ -45,7 +45,7 @@ export default {
       const [active, inactive] = await dashboardLogic.getPlayersStats()
 
       res.render('players', {
-        title: 'Taganrog Kicker League, Season 2018 | Players',
+        title: 'Рейтинг',
         stats: active.concat(inactive)
       });
     } catch (err) {

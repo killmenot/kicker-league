@@ -1,5 +1,8 @@
 extends layout
 
+block nav
+  include nav.pug
+
 block content
   -
     const classList = {
@@ -8,7 +11,7 @@ block content
       3: 'bronze'
     }
 
-  h1= title
+  h2= title
 
   div(class="row")
     div(class="col")
