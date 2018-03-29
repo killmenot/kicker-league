@@ -5,7 +5,7 @@ module.exports = {
     return queryInterface.bulkInsert('games', [
       {
         id: 1,
-        date: '18-03-2018',
+        date: '2018-03-18',
         home_team_id: 2,
         home_score: 5,
         away_team_id: 1,
@@ -16,7 +16,7 @@ module.exports = {
       },
       {
         id: 2,
-        date: '04-03-2018',
+        date: '2018-03-04',
         home_team_id: 1,
         home_score: 3,
         away_team_id: 4,

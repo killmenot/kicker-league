@@ -5,7 +5,7 @@
     "node": "9.7.1"
   },
   "scripts": {
-    "build": "cross-env NODE_ENV=development babel src -s -D -d dist",
+    "build": "rm -rf dist && cross-env NODE_ENV=development babel src -s -D -d dist",
     "prestart": "npm run -s build",
     "start": "node index.js",
     "start:dev": "nodemon -w src --exec babel-node src/server.js",
