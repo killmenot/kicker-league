@@ -35,7 +35,7 @@ block content
           th(class="double diff") +/-
         each item, index in stats
           tr(class="text-center align-middle")
-            td(class=`${item.isActive ? 'top': 'other'}`)= index + 1 
+            td(class=`${item.isActive ? 'top': 'other'}`)= item.isActive ? index + 1 : ''
             td(class=`text-left ${item.isActive ? 'top': 'other'}`)= item.user.fullName
             td(class=`${item.isActive ? 'top': 'other'}`)= item.user.team.name
             td(class="all")= item.all.totalCount
