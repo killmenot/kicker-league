@@ -3,7 +3,7 @@
 import _ from 'lodash'
 import {constants} from '../shared'
 
-export default class Stats {
+export default class GameStats {
   constructor(team, games) {
     this.team = team
 

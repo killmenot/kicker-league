@@ -1,0 +1,54 @@
+extends layout
+
+block content
+  h1= title
+
+  div(class="row")
+    div(class="col")
+      table(class="table table-bordered")
+        tr(class="head text-center")
+          th(rowspan="2", class="align-middle") #
+          th(rowspan="2", class="align-middle") Фамилия, Имя
+          th(rowspan="2", class="align-middle") Команда
+          th(colspan="5", class="all") Всего
+          th(colspan="5", class="single") Одиночки
+          th(colspan="5", class="double") Пары
+          th(rowspan="2", class="other align-middle") min
+        tr(class="head text-center")
+          th(class="all") M
+          th(class="all") W
+          th(class="all") D
+          th(class="all") L
+          th(class="all diff") +/-
+          th(class="single") M
+          th(class="single") W
+          th(class="single") D
+          th(class="single") L
+          th(class="single diff") +/-
+          th(class="double") M
+          th(class="double") W
+          th(class="double") D
+          th(class="double") L
+          th(class="double diff") +/-
+        each item, index in stats
+          tr(class="text-center align-middle")
+            td(class=`${item.isActive ? 'top': 'other'}`)= index + 1 
+            td(class=`text-left ${item.isActive ? 'top': 'other'}`)= item.user.fullName
+            td(class=`${item.isActive ? 'top': 'other'}`)= item.user.team.name
+            td(class="all")= item.all.totalCount
+            td(class="all")= item.all.winsCount
+            td(class="all")= item.all.drawsCount
+            td(class="all")= item.all.losesCount
+            td(class="all diff")= item.all.odds
+            td(class="single diff")= item.single.totalCount
+            td(class="single diff")= item.single.winsCount
+            td(class="single diff")= item.single.drawsCount
+            td(class="single diff")= item.single.losesCount
+            td(class="single diff")= item.single.odds
+            td(class="double diff")= item.double.totalCount
+            td(class="double diff")= item.double.winsCount
+            td(class="double diff")= item.double.drawsCount
+            td(class="double diff")= item.double.losesCount
+            td(class="double diff")= item.double.odds
+            td(class="other")= item.min
+  

@@ -10,6 +10,7 @@ export default (app) => {
   logger.info('routes')
 
   app.get('/', homeController.index)
+  app.get('/players', homeController.playersList)
   app.use('/api/v1', api)
   app.use('/admin', basicAuth, adminRoutes)
 }

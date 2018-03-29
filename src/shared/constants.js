@@ -19,5 +19,6 @@ module.exports = {
   points: {
     WIN: 2,
     DRAW: 1
-  }
+  },
+  MIN_MATCHES_PER_GAME: 1.2
 }

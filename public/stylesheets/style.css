@@ -38,3 +38,28 @@ ul li {
 .other {
   background-color: CornflowerBlue;
 }
+
+.all {
+  background-color: #d9ead3;
+}
+.all.diff {
+  background-color: #b6d7a8;
+}
+
+.single {
+  background-color: #fff2cc;
+}
+.single.diff {
+  background-color: #ffe599;
+}
+
+.double {
+  background-color: #c9daf8;
+}
+.double.diff {
+  background-color: #a4c2f4;
+}
+
+.top {
+  background-color: #f4cccc;
+}

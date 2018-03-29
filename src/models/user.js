@@ -7,6 +7,12 @@ export default class User {
     this.firstName = dbData.firstName
     this.lastName = dbData.lastName
 
-    this.fullName = `${this.firstName} ${this.lastName}`
+    this.fullName = `${this.lastName} ${this.firstName}`
+  }
+
+  setTeam(team) {
+    if (!team) return
+
+    this.team = team
   }
 }

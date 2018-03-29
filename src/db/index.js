@@ -6,6 +6,7 @@ import matchDb from './matchDb'
 import matchUsersDb from './matchUsersDb'
 import penaltyDb from './penaltyDb'
 import setDb from './setDb'
+import statsDb from './statsDb'
 import teamDb from './teamDb'
 import userDb from './userDb'
 
@@ -17,6 +18,7 @@ export {
   matchUsersDb,
   penaltyDb,
   setDb,
+  statsDb,
   teamDb,
   userDb
 }

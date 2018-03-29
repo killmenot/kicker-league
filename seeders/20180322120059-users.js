@@ -150,7 +150,7 @@ module.exports = {
       {
         id: 19,
         first_name: 'Сергей',
-        last_name: 'Наливайка',
+        last_name: 'Иванов',
         team_id: 4,
         created_at: new Date(),
         updated_at: new Date()
