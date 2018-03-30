@@ -68,20 +68,19 @@ block content
 
   div(class="row border-top")
 
-  if (game.penalties.length > 0)
-    h2(class="mt-3 text-center") Пенальти
+  h2(class="mt-3 text-center") Пенальти
 
-    each penalty in game.penalties
-      if (penalty.id)
-        div(class="row")
-          div(class="col text-center")
-            h5= penalty.awayPlayer.fullName
-          div(class="col-1 text-right")
-            h5= penalty.awayScore
-          div(class="col-1 text-left")
-            h5= penalty.homeScore
-          div(class="col text-center")
-            h5= penalty.homePlayer.fullName
+  each penalty in game.penalties
+    if (penalty.id)
+      div(class="row")
+        div(class="col text-center")
+          h5= penalty.awayPlayer.fullName
+        div(class="col-1 text-right")
+          h5= penalty.awayScore
+        div(class="col-1 text-left")
+          h5= penalty.homeScore
+        div(class="col text-center")
+          h5= penalty.homePlayer.fullName
 
 block ga
   include ga.pug
