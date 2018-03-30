@@ -1,0 +1,87 @@
+extends layout
+
+block nav
+  include nav.pug
+
+block content
+  h2= title
+
+  div(class="row")
+    div(class="col")
+      h5= `Место: ${game.homeTeam.location}`
+  div(class="row")
+    div(class="col")
+      h5= `Дата: ${game.date}`
+
+  hr
+
+  div(class="row")
+    div(class="col text-center")
+      h5 Команда гостей
+    div(class="col text-center")
+      h5 Команда хозяев
+
+  hr
+
+  div(class="row")
+    div(class="col text-center")
+      h3= game.awayTeam.name
+    div(class="col text-center")
+      h3= game.homeTeam.name
+
+  each match in game.matches
+    div(class="row border border-bottom-0 align-items-center")
+      div(class="col-1")
+        h3(class=`${match.winner === winner.AWAY ? 'text-success' : ''} text-center`)
+          = `${match.position}${match.type[0].toUpperCase()}`
+      div(class="col")
+        div(class="row align-items-center border-left border-right")
+          if (match.walkover && match.winner === winner.AWAY)
+            div(class="col text-center mt-2")
+              h4 Техническая победа гостей
+          else if (match.walkover && match.winner === winner.HOME)
+            div(class="col text-center mt-2")
+              h4 Техническая победа хозяев
+          else
+            div(class="col")
+              each player in match.awayPlayers
+                div(class="row")
+                  div(class="col text-center")
+                    h5= player.fullName
+            div(class="col-2 border-left border-right text-center")
+              each set in match.sets
+                div(class="row")
+                  div(class="col pr-0")
+                    h4= set.awayScore
+                  div(class="col pl-0 pr-0")
+                    h4 :
+                  div(class="col pl-0")
+                    h4= set.homeScore
+            div(class="col")
+              each player in match.homePlayers
+                div(class="row")
+                  div(class="col text-center")
+                    h5= player.fullName
+      div(class="col-1")
+        h3(class=`${match.winner === winner.HOME ? 'text-success' : ''} text-center`)
+          = `${match.position}${match.type[0].toUpperCase()}`
+
+  div(class="row border-top")
+
+  if (game.penalties.length > 0)
+    h2(class="mt-3 text-center") Пенальти
+
+    each penalty in game.penalties
+      if (penalty.id)
+        div(class="row")
+          div(class="col text-center")
+            h5= penalty.awayPlayer.fullName
+          div(class="col-1 text-right")
+            h5= penalty.awayScore
+          div(class="col-1 text-left")
+            h5= penalty.homeScore
+          div(class="col text-center")
+            h5= penalty.homePlayer.fullName
+
+block ga
+  include ga.pug

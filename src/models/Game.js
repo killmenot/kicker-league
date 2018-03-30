@@ -63,4 +63,18 @@ export default class Game {
   static buildKey(homeTeamId, awayTeamId) {
     return `H${homeTeamId}A${awayTeamId}`
   }
+
+  static parseKey(key) {
+    const m = /H(\d*)A(\d*)/i.exec(key)
+
+    return m ?
+      {
+        homeTeamId: parseInt(m[1], 10),
+        awayTeamId: parseInt(m[2], 10)
+      } :
+      {
+        homeTeamId: 0,
+        awayTeamId: 0
+      }
+  }
 }

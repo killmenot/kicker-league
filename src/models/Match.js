@@ -33,4 +33,8 @@ export default class Match {
 
     this.awayPlayers = this.awayPlayers.concat(players)
   }
+
+  get walkover() {
+    return _.every(this.sets, x => x.walkover)
+  }
 }

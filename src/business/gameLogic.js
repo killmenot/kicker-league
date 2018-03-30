@@ -102,7 +102,14 @@ const gameLogic = {
     const teamsIndexed = _.keyBy(teams, 'id')
     const matchesGrouped = _.groupBy(matches, 'gameId')
 
-    const penalties = dbPenalties.map(x => new Penalty(x))
+    const penalties = dbPenalties.map(x => {
+      const penalty = new Penalty(x)
+
+      penalty.setHomePlayer(usersIndexed[x.homePlayerId])
+      penalty.setAwayPlayer(usersIndexed[x.awayPlayerId])
+
+      return penalty
+    })
     const penaltiesGrouped = _.groupBy(penalties, 'gameId')
 
     return dbGames.map(x => {
@@ -344,6 +351,15 @@ const gameLogic = {
     logger.info('business/gameLogic|delete', {id})
 
     await gameDb.delete(id)
+  },
+
+  getGameByHomeAndAwayTeamIds: async (homeTeamId, awayTeamId) => {
+    logger.info('business/gameLogic|getGameByHomeAndAwayTeamIds', {homeTeamId, awayTeamId})
+
+    const dbGame = await gameDb.getByHomeAndAwayTeamIds(homeTeamId, awayTeamId)
+    const games = await gameLogic.processGamesForResponse([dbGame])
+
+    return games[0]
   }
 }
 

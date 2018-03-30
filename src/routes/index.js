@@ -11,6 +11,7 @@ export default (app) => {
 
   app.get('/', homeController.index)
   app.get('/players', homeController.playersList)
+  app.get('/games/:key', homeController.gameDetails)
   app.use('/api/v1', api)
   app.use('/admin', basicAuth, adminRoutes)
 }

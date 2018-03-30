@@ -1,7 +1,9 @@
 'use strict'
 
-import {dashboardLogic} from '../business'
+import {dashboardLogic, gameLogic} from '../business'
 import {logger} from '../core'
+import {Game} from '../models'
+import {constants} from '../shared'
 
 export default {
 
@@ -47,6 +49,31 @@ export default {
       res.render('players', {
         title: 'Рейтинг',
         stats: active.concat(inactive)
+      });
+    } catch (err) {
+      return next(err)
+    }
+  },
+
+  /**
+   * Gets players list
+   *
+   * @param {Request} req
+   * @param {Response} res
+   * @param {Function} [next]
+   * @returns {*}
+   */
+  gameDetails: async (req, res, next) => {
+    logger.info('controllers/homeController|gameDetails', {key: req.params.key})
+
+    try {
+      const {homeTeamId, awayTeamId} = Game.parseKey(req.params.key)
+      const game = await gameLogic.getGameByHomeAndAwayTeamIds(homeTeamId, awayTeamId)
+
+      res.render('game', {
+        title: `${game.title}`,
+        game: game,
+        winner: constants.winner
       });
     } catch (err) {
       return next(err)

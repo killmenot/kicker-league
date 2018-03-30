@@ -24,7 +24,8 @@ block content
           tr
             td(class="text-nowrap")= row[0].homeTeam.name
             each cell, cellIndex in row
-              td(class=`text-center ${rowIndex === cellIndex ? 'bg-dark' : ''}`)= cell.game.scores
+              td(class=`text-center ${rowIndex === cellIndex ? 'bg-dark' : ''}`)
+                a(href=`/games/${cell.game.key}`)= cell.game.scores
 
     div(class="col")
       table(class="table table-bordered")
