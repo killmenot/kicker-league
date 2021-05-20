@@ -1,6 +1,8 @@
 'use strict'
 
-export default (sequelize, DataTypes) => {
+import { DataTypes } from 'sequelize'
+
+export default (sequelize) => {
   const Team = sequelize.define('Team', {
     name: {
       allowNull: false,

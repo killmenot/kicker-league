@@ -1,10 +1,10 @@
 'use strict'
 
-import winston from 'winston'
+import { createLogger, transports } from 'winston'
 
-const logger = new winston.Logger({
+const logger = createLogger({
   transports: [
-    new winston.transports.Console({
+    new transports.Console({
       timestamp: true,
       colorize: true,
       level: 'debug'

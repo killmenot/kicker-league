@@ -1,6 +1,8 @@
 'use strict'
 
-export default (sequelize, DataTypes) => {
+import { DataTypes } from 'sequelize'
+
+export default (sequelize) => {
   const Match = sequelize.define('Match', {
     position: {
       allowNull: false,

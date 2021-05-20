@@ -2,7 +2,7 @@
   "name": "kicker-league",
   "version": "1.0.0",
   "engines": {
-    "node": "9.7.1"
+    "node": ">=14.x"
   },
   "scripts": {
     "build": "rm -rf dist && cross-env NODE_ENV=development babel src -s -D -d dist",
@@ -24,34 +24,34 @@
   ],
   "dependencies": {
     "babel-polyfill": "^6.26.0",
-    "bluebird": "^3.5.1",
-    "body-parser": "^1.18.2",
-    "cookie-parser": "^1.4.3",
-    "debug": "^3.1.0",
-    "dotenv": "^5.0.1",
-    "express": "^4.16.2",
-    "express-basic-auth": "^1.1.4",
-    "lodash": "^4.17.5",
-    "moment": "^2.21.0",
-    "morgan": "^1.7.0",
-    "mysql": "^2.15.0",
-    "pg": "^6.1.0",
-    "pug": "^2.0.0-rc.4",
-    "sequelize": "^3.23.6",
-    "sequelize-cli": "^3.1.0",
-    "serve-favicon": "~2.3.0",
-    "sqlite3": "^3.0.8",
-    "winston": "^2.4.1"
+    "bluebird": "^3.7.2",
+    "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.5",
+    "debug": "^4.3.1",
+    "dotenv": "^9.0.2",
+    "express": "^4.17.1",
+    "express-basic-auth": "^1.2.0",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.1",
+    "morgan": "^1.10.0",
+    "mysql": "^2.18.1",
+    "pg": "^8.6.0",
+    "pug": "^3.0.2",
+    "sequelize": "^6.6.2",
+    "sequelize-cli": "^6.2.0",
+    "serve-favicon": "~2.5.0",
+    "sqlite3": "^5.0.2",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "cross-env": "^3.1.3",
-    "eslint": "^4.19.0",
+    "babel-preset-env": "^1.7.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^7.26.0",
     "expect.js": "^0.3.1",
-    "mocha": "^3.0.2",
-    "nodemon": "^1.17.2",
+    "mocha": "^8.4.0",
+    "nodemon": "^2.0.7",
     "pre-commit": "^1.2.2",
-    "supertest": "^2.0.0"
+    "supertest": "^6.1.3"
   }
 }
