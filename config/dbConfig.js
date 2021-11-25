@@ -31,9 +31,6 @@ module.exports = {
     dialect: 'mysql',
     protocol: 'mysql',
     port: 3306,
-    dialectOptions: {
-      ssl: true
-    },
     define: {
       underscored: true
     }
